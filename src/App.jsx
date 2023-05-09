@@ -14,19 +14,8 @@ export default function App() {
     const allSameValue = dice.every((die) => die.value === firstValue);
     if (allHeld && allSameValue) {
       setTenzies(true);
-      console.log("You won!");
     }
   }, [dice]);
-
-  /**
-   * Challenge: Tie off loose ends!
-   * 1. If tenzies is true, Change the button text to "New Game"
-   * 2. If tenzies is true, use the "react-confetti" package to
-   *    render the <Confetti /> component 🎉
-   *
-   *    Hint: don't worry about the `height` and `width` props
-   *    it mentions in the documentation.
-   */
 
   function generateNewDie() {
     return {
@@ -45,11 +34,16 @@ export default function App() {
   }
 
   function rollDice() {
-    setDice((oldDice) =>
-      oldDice.map((die) => {
-        return die.isHeld ? die : generateNewDie();
-      })
-    );
+    if (!tenzies) {
+      setDice((oldDice) =>
+        oldDice.map((die) => {
+          return die.isHeld ? die : generateNewDie();
+        })
+      );
+    } else {
+      setTenzies(false);
+      setDice(allNewDice());
+    }
   }
 
   function holdDice(id) {
@@ -71,6 +65,7 @@ export default function App() {
 
   return (
     <main>
+      {tenzies && <Confetti />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">
         Roll until all dice are the same. Click each die to freeze it at its
@@ -80,12 +75,6 @@ export default function App() {
       <button className="roll-dice" onClick={rollDice}>
         {tenzies ? "New Game" : "Roll"}
       </button>
-      <Confetti
-        width={500}
-        height={500}
-        numberOfPieces={1000}
-        recycle={false}
-      />
     </main>
   );
 }
