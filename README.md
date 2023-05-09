@@ -55,7 +55,7 @@ npm run dev
 
 ## Screenshots
 
-![App Screenshot](https://raw.githubusercontent.com/ozgeahras/tenzies-game-react/master/dist/screenshot.png)
+![App Screenshot](https://raw.githubusercontent.com/ozgeahras/tenzies-game-react/master/public/screenshot.png)
 
 ## About Me
 
